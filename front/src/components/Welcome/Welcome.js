@@ -13,8 +13,11 @@ function Welcome() {
     const PressAnyKeyRef = useRef(null);
     const [active_window_trigger, set_active_window_trigger] = useState(false);
     const [active_window, set_active_window] = useState('press_any_key');
-    const email = Validation.Use_input('');
-    const password = Validation.Use_input('');
+    const log_email = Validation.Use_input('');
+    const log_password = Validation.Use_input('');
+    const reg_email = Validation.Use_input('');
+    const reg_password = Validation.Use_input('');
+    const reg_password2 = Validation.Use_input('');
 
 
 
@@ -35,7 +38,7 @@ function Welcome() {
             {active_window === 'press_any_key' ?
                 <React.Fragment>
                   <span ref={PressAnyKeyRef}
-                  onClick={()=>{set_active_window('login'); set_active_window_trigger(true);}}
+                     onClick={()=>{set_active_window('login'); set_active_window_trigger(true);}}
                   >
                     PRESS ANY KEY
                   </span>
@@ -43,16 +46,16 @@ function Welcome() {
             }
             </div>
             {active_window === 'login' ?
-                <div className="form-wrapper form-wrapper-login">
-                    <form className={'form form-group'}>
-                        <label><
-                        span className={'error'}>{email.is_dirty ? Validation.email(email.value) : false}</span>
-                        <input onChange={e =>email.onChange(e)} onBlur={e =>email.onBlur(e)} value={email.value}
+                <div className={`form-wrapper form-wrapper-login ${active_window === "login" ? "fadeIn" : "fadeOut"}`}>
+                    <form className={`form form-group ${active_window === "login" ? "closeIn" : " "}`}>
+                        <label>
+                        <span className={'error'}>{log_email.is_dirty ? Validation.email(log_email.value) : false}</span>
+                        <input onChange={e =>log_email.onChange(e)} onBlur={e =>log_email.onBlur(e)} value={log_email.value}
                                className={'form-control'} type="text" placeholder={'email'}/></label>
                         <label>
-                            <span className={'error'}>{password.is_dirty ? Validation.min_length(password.value, 3) : false}</span>
-                            <span className={'error'}>{password.is_dirty ? Validation.max_length(password.value, 32) : false}</span>
-                        <input onChange={e =>password.onChange(e)} onBlur={e =>password.onBlur(e)} value={password.value}
+                        <span className={'error'}>{log_password.is_dirty ? Validation.min_length(log_password.value, 3) : false}</span>
+                        <span className={'error'}>{log_password.is_dirty ? Validation.max_length(log_password.value, 32) : false}</span>
+                        <input onChange={e =>log_password.onChange(e)} onBlur={e =>log_password.onBlur(e)} value={log_password.value}
                                className={'form-control'} type="password" placeholder={'password'}/></label>
                         <div className="form-wrapper__extra-ux">
                             <p className={'form-wrapper__registration'}
@@ -67,11 +70,22 @@ function Welcome() {
                 </div> : false
             }
             {active_window === 'registration' ?
-                <div className="form-wrapper form-wrapper-registration">
-                    <form className={'form form-group'}>
-                        <input className={'form-control'} type="text" placeholder={'username'}/>
-                        <input className={'form-control'} type="password" placeholder={'password'}/>
-                        <input className={'form-control'} type="password" placeholder={'repeat password'}/>
+                <div className={`form-wrapper form-wrapper-registration ${active_window === "registration" ? "fadeIn" : "fadeOut"}`}>
+                    <form className={`form form-group ${active_window === "registration" ? "closeIn" : " "}`}>
+                        <label>
+                        <span className={'error'}>{reg_email.is_dirty ? Validation.email(reg_email.value) : false}</span>
+                        <input onChange={e =>reg_email.onChange(e)} onBlur={e =>reg_email.onBlur(e)} value={reg_email.value}
+                               className={'form-control'} type="text" placeholder={'email'}/></label>
+                        <label>
+                        <span className={'error'}>{reg_password.is_dirty ? Validation.min_length(reg_password.value, 3) : false}</span>
+                        <span className={'error'}>{reg_password.is_dirty ? Validation.max_length(reg_password.value, 32) : false}</span>
+                        <input onChange={e =>reg_password.onChange(e)} onBlur={e =>reg_password.onBlur(e)} value={reg_password.value}
+                               className={'form-control'} type="password" placeholder={'password'}/></label>
+                        <label>
+                        <span className={'error'}>{reg_password2.is_dirty ?
+                            Validation.match_passwords(reg_password.value, reg_password2.value) : false}</span>
+                        <input onChange={e =>reg_password2.onChange(e)} onBlur={e =>reg_password2.onBlur(e)} value={reg_password2.value}
+                               className={'form-control'} type="password" placeholder={'repeat password'}/></label>
                         <div className="form-wrapper__extra-ux">
                             <p className={'form-wrapper__registration'}
                                onClick={()=>{set_active_window('login')}}

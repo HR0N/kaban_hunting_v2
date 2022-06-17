@@ -94,6 +94,7 @@
       row-gap: 22px;
       width: 320px;
       padding-bottom: 20px;
+      overflow: hidden;
       label{
         position: relative;
       .error{
@@ -121,6 +122,7 @@
     padding: 0 12px;
     bottom: 0;
     left: 0;
+    animation: linear fadeIn2 1.6s;
     p{
       display: block;
       width: auto;
@@ -152,7 +154,7 @@
     }
   }
   .fadeIn{
-    animation: linear fadeIn 2s;
+    animation: linear fadeIn 1.6s;
   }
   .fadeOut{
     animation: linear fadeOut 2s;
@@ -165,6 +167,20 @@
     }
     5%{
       display: block;
+      opacity: 0;
+    }
+    50%{
+      opacity: .8;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
+  @keyframes fadeIn2 {
+    0%{
+      opacity: 0;
+    }
+    70%{
       opacity: 0;
     }
     100%{
@@ -182,6 +198,17 @@
     }
     100%{
       display: none;
+    }
+  }
+  .closeIn{
+    animation: linear anim_closeIn .6s;
+  }
+  @keyframes anim_closeIn {
+    0%{
+      max-height: 0;
+    }
+    100%{
+      max-height: 200px;
     }
   }
 }
