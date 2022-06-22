@@ -1,10 +1,26 @@
 import './Welcome.scss';
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './../../services/auth_validation';
 import Auth_validation from "../../services/auth_validation";
+import axios from "axios";
 
 const Validation = new Auth_validation();
-
+const sanctum_login = (log, pas)=>{   //send sanctum post 2
+    console.log("S A N C T U M");
+    axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(response => {
+        // Login...
+        axios.post('http://127.0.0.1:8000/api/login', {email: log, password: pas})
+            .then(r =>{console.log(r)});
+    });
+};
+const sanctum_register = (log, pas)=>{   //send sanctum post 2
+    console.log("S A N C T U M");
+    axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(response => {
+        // Login...
+        axios.post('http://127.0.0.1:8000/api/register', {email: log, password: pas})
+            .then(r =>{console.log(r)});
+    });
+};
 
 function Welcome() {
 
@@ -18,17 +34,33 @@ function Welcome() {
     const reg_email = Validation.Use_input('');
     const reg_password = Validation.Use_input('');
     const reg_password2 = Validation.Use_input('');
-
+    useEffect(() => {   // componentDidMount(){}
+        WelcomeRef.current.focus();
+    }, []);
 
 
     return (
         <div className="Welcome"
          ref={WelcomeRef}
          tabIndex={0}
-         onKeyPress={()=>{
+         onKeyPress={(e)=>{
              if(!active_window_trigger){
                  set_active_window('login');
                  set_active_window_trigger(true);
+             }
+             if(e.charCode === 13){    // check is any validation Error
+                 if(log_email.is_dirty && log_password.is_dirty){
+                     if(!Validation.email(log_email.value) &&
+                         !Validation.min_length(log_password.value) &&
+                         !Validation.max_length(log_password.value)
+                     ){sanctum_login(log_email.value, log_password.value);}   //send sanctum post 1
+                 }
+                 if(reg_email.is_dirty && reg_password.is_dirty && reg_password2.is_dirty){
+                     if(!Validation.email(reg_email.value) &&
+                         !Validation.min_length(reg_password.value) &&
+                         !Validation.max_length(reg_password.value)
+                     ){sanctum_register(reg_email.value, reg_password.value, reg_password2.value);}   //send sanctum post 1
+                 }
              }
          }}>
             <div id='stars'> </div>
@@ -49,6 +81,7 @@ function Welcome() {
                 <div className={`form-wrapper form-wrapper-login ${active_window === "login" ? "fadeIn" : "fadeOut"}`}>
                     <form className={`form form-group ${active_window === "login" ? "closeIn" : " "}`}>
                         <label>
+
                         <span className={'error'}>{log_email.is_dirty ? Validation.email(log_email.value) : false}</span>
                         <input onChange={e =>log_email.onChange(e)} onBlur={e =>log_email.onBlur(e)} value={log_email.value}
                                className={'form-control'} type="text" placeholder={'email'}/></label>
