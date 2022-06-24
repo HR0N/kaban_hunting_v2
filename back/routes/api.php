@@ -1,9 +1,14 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NeilArmstrongController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+
+//header('Access-Control-Allow-Origin: anakim.space');
+header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS');
+header("Access-Control-Allow-Headers: X-Requested-With");
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +20,10 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+// Public
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::controller(RegisterController::class)->group(function(){
-    Route::post('register', 'register');
-    Route::post('login', 'login');
-});
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::get('/get', [NeilArmstrongController::class, 'index']);

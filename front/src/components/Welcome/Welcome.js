@@ -3,27 +3,30 @@ import React, {useEffect, useRef, useState} from "react";
 import './../../services/auth_validation';
 import Auth_validation from "../../services/auth_validation";
 import axios from "axios";
+import http from "../../services/axios";
 
 const Validation = new Auth_validation();
 const sanctum_login = (log, pas)=>{   //send sanctum post 2
-    console.log("S A N C T U M");
-    axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(response => {
-        // Login...
-        axios.post('http://127.0.0.1:8000/api/login', {email: log, password: pas})
+    console.log("S A N C T U M l");
+    // Login...
+    http.get('sanctum/csrf-cookie').then(response => {
+        http.post('api/login', {email: log, password: pas})
             .then(r =>{console.log(r)});
     });
 };
-const sanctum_register = (log, pas)=>{   //send sanctum post 2
-    console.log("S A N C T U M");
-    axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(response => {
-        // Login...
-        axios.post('http://127.0.0.1:8000/api/register', {email: log, password: pas})
-            .then(r =>{console.log(r)});
-    });
+const sanctum_register = (log, pas, pas2)=>{   //send sanctum post 2
+    console.log("S A N C T U M r");
+        // Register...
+
 };
 
 function Welcome() {
 
+    async function getUser() {
+        const csrf = await http.get('/sanctum/csrf-cookie')
+            .then(r => console.log(r));
+        console.log('csrf = ', csrf);
+    }
 
     const WelcomeRef = useRef(null);
     const PressAnyKeyRef = useRef(null);
@@ -36,6 +39,7 @@ function Welcome() {
     const reg_password2 = Validation.Use_input('');
     useEffect(() => {   // componentDidMount(){}
         WelcomeRef.current.focus();
+        getUser();
     }, []);
 
 
