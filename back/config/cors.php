@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://fuck-you-laravel.anakim.space'],
 
     'allowed_origins_patterns' => [],
 
