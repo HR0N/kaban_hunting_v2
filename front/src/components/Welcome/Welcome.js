@@ -1,70 +1,44 @@
 import './Welcome.scss';
 import React, {useEffect, useRef, useState} from "react";
-import './../../services/auth_validation';
-import Auth_validation from "../../services/auth_validation";
-import axios from "axios";
-import http from "../../services/axios";
+import InputClass from "../../snipets/input";
+import ValidatorClass from "../../snipets/validator";
+import Connect from "../../services/axios";
 
-const Validation = new Auth_validation();
-const sanctum_login = (log, pas)=>{   //send sanctum post 2
-    console.log("S A N C T U M l");
-    // Login...
-    http.get('sanctum/csrf-cookie').then(response => {
-        http.post('api/login', {email: log, password: pas})
-            .then(r =>{console.log(r)});
-    });
-};
-const sanctum_register = (log, pas, pas2)=>{   //send sanctum post 2
-    console.log("S A N C T U M r");
-        // Register...
 
-};
+const Input = new InputClass();
+const valid = new ValidatorClass();
+
 
 function Welcome() {
-
-    async function getUser() {
-        const csrf = await http.get('/sanctum/csrf-cookie')
-            .then(r => console.log(r));
-        console.log('csrf = ', csrf);
-    }
-
     const WelcomeRef = useRef(null);
     const PressAnyKeyRef = useRef(null);
+    const emailLog = Input.Use('');
+    const pasLog = Input.Use('');
+    const emailReg = Input.Use('');
+    const pasReg = Input.Use('');
+    const pasReg2 = Input.Use('');
     const [active_window_trigger, set_active_window_trigger] = useState(false);
     const [active_window, set_active_window] = useState('press_any_key');
-    const log_email = Validation.Use_input('');
-    const log_password = Validation.Use_input('');
-    const reg_email = Validation.Use_input('');
-    const reg_password = Validation.Use_input('');
-    const reg_password2 = Validation.Use_input('');
-    useEffect(() => {   // componentDidMount(){}
+
+        useEffect(() => {   // componentDidMount(){}
         WelcomeRef.current.focus();
-        getUser();
     }, []);
 
+    const readyLogin = () => {if(active_window === 'login' && emailLog.touched && valid.isEmail(emailLog.val)
+        && pasLog.touched && valid.isLength(pasLog.val, 4, 40)){return true}};
+    const readyRegister = () => {if(active_window === 'registration' && emailReg.touched && valid.isEmail(emailReg.val)
+        && pasReg.touched && valid.isLength(pasReg.val, 4, 40) && pasReg2.touched &&
+        valid.isPasEquals(pasReg.val, pasReg2.val)){return true}};
 
     return (
         <div className="Welcome"
          ref={WelcomeRef}
          tabIndex={0}
          onKeyPress={(e)=>{
-             if(!active_window_trigger){
-                 set_active_window('login');
-                 set_active_window_trigger(true);
-             }
-             if(e.charCode === 13){    // check is any validation Error
-                 if(log_email.is_dirty && log_password.is_dirty){
-                     if(!Validation.email(log_email.value) &&
-                         !Validation.min_length(log_password.value) &&
-                         !Validation.max_length(log_password.value)
-                     ){sanctum_login(log_email.value, log_password.value);}   //send sanctum post 1
-                 }
-                 if(reg_email.is_dirty && reg_password.is_dirty && reg_password2.is_dirty){
-                     if(!Validation.email(reg_email.value) &&
-                         !Validation.min_length(reg_password.value) &&
-                         !Validation.max_length(reg_password.value)
-                     ){sanctum_register(reg_email.value, reg_password.value, reg_password2.value);}   //send sanctum post 1
-                 }
+             if(!active_window_trigger){set_active_window_trigger(true); set_active_window('login')}
+             if(e.charCode === 13){
+                 console.log(readyLogin());
+                 console.log(readyRegister());
              }
          }}>
             <div id='stars'> </div>
@@ -74,7 +48,7 @@ function Welcome() {
             {active_window === 'press_any_key' ?
                 <React.Fragment>
                   <span ref={PressAnyKeyRef}
-                     onClick={()=>{set_active_window('login'); set_active_window_trigger(true);}}
+                        onClick={()=>{set_active_window('login')}}
                   >
                     PRESS ANY KEY
                   </span>
@@ -85,23 +59,30 @@ function Welcome() {
                 <div className={`form-wrapper form-wrapper-login ${active_window === "login" ? "fadeIn" : "fadeOut"}`}>
                     <form className={`form form-group ${active_window === "login" ? "closeIn" : " "}`}>
                         <label>
-
-                        <span className={'error'}>{log_email.is_dirty ? Validation.email(log_email.value) : false}</span>
-                        <input onChange={e =>log_email.onChange(e)} onBlur={e =>log_email.onBlur(e)} value={log_email.value}
+                        <span className={'error'}>{emailLog.touched ? valid.isEmailMsg(emailLog.val)
+                            : false}</span>
+                        <input onChange={(e)=>{emailLog.onChange(e)}}
+                               value={emailLog.val}
+                               onBlur={(e)=>{emailLog.onBlur(e)}}
                                className={'form-control'} type="text" placeholder={'email'}/></label>
                         <label>
-                        <span className={'error'}>{log_password.is_dirty ? Validation.min_length(log_password.value, 3) : false}</span>
-                        <span className={'error'}>{log_password.is_dirty ? Validation.max_length(log_password.value, 32) : false}</span>
-                        <input onChange={e =>log_password.onChange(e)} onBlur={e =>log_password.onBlur(e)} value={log_password.value}
+                            <span className={'error'}>{pasLog.touched ? valid.isLengthMsg(pasLog.val, 4, 40)
+                                : false}</span>
+                        <input onChange={(e)=>{pasLog.onChange(e)}}
+                               value={pasLog.val}
+                               onFocus={(e)=>{pasLog.onBlur(e)}}
                                className={'form-control'} type="password" placeholder={'password'}/></label>
                         <div className="form-wrapper__extra-ux">
                             <p className={'form-wrapper__registration'}
-                            onClick={()=>{set_active_window('registration')}}
+                               onClick={()=>{set_active_window('registration')}}
                             >Registration</p>
-                            <p className={'form-wrapper__exit'} onClick={()=>{
-                                set_active_window('press_any_key');
-                                set_active_window_trigger(false);
-                            }}>Exit()</p>
+                            <p className={'form-wrapper__exit'}
+                               onClick={()=>{
+                                   if(active_window_trigger){
+                                       set_active_window_trigger(false);
+                                       set_active_window('press_any_key');}
+                               }}
+                            >Exit()</p>
                         </div>
                     </form>
                 </div> : false
@@ -110,27 +91,35 @@ function Welcome() {
                 <div className={`form-wrapper form-wrapper-registration ${active_window === "registration" ? "fadeIn" : "fadeOut"}`}>
                     <form className={`form form-group ${active_window === "registration" ? "closeIn" : " "}`}>
                         <label>
-                        <span className={'error'}>{reg_email.is_dirty ? Validation.email(reg_email.value) : false}</span>
-                        <input onChange={e =>reg_email.onChange(e)} onBlur={e =>reg_email.onBlur(e)} value={reg_email.value}
+                        <span className={'error'}>{emailReg.touched ? valid.isEmailMsg(emailReg.val)
+                            : false}</span>
+                        <input onChange={(e)=>{emailReg.onChange(e)}}
+                               value={emailReg.val}
+                               onBlur={(e)=>{emailReg.onBlur(e)}}
                                className={'form-control'} type="text" placeholder={'email'}/></label>
                         <label>
-                        <span className={'error'}>{reg_password.is_dirty ? Validation.min_length(reg_password.value, 3) : false}</span>
-                        <span className={'error'}>{reg_password.is_dirty ? Validation.max_length(reg_password.value, 32) : false}</span>
-                        <input onChange={e =>reg_password.onChange(e)} onBlur={e =>reg_password.onBlur(e)} value={reg_password.value}
+                        <span className={'error'}>{pasReg.touched ? valid.isLengthMsg(pasReg.val, 4, 40)
+                            : false}</span>
+                        <input onChange={(e)=>{pasReg.onChange(e)}}
+                               value={pasReg.val}
+                               onBlur={(e)=>{pasReg.onBlur(e)}}
                                className={'form-control'} type="password" placeholder={'password'}/></label>
                         <label>
-                        <span className={'error'}>{reg_password2.is_dirty ?
-                            Validation.match_passwords(reg_password.value, reg_password2.value) : false}</span>
-                        <input onChange={e =>reg_password2.onChange(e)} onBlur={e =>reg_password2.onBlur(e)} value={reg_password2.value}
+                        <span className={'error'}>{pasReg2.touched ? valid.isPasEqualsMsg(pasReg.val, pasReg2.val)
+                            : false}</span>
+                        <input onChange={(e)=>{pasReg2.onChange(e)}}
+                               value={pasReg2.val}
+                               onFocus={(e)=>{pasReg2.onBlur(e)}}
                                className={'form-control'} type="password" placeholder={'repeat password'}/></label>
                         <div className="form-wrapper__extra-ux">
                             <p className={'form-wrapper__registration'}
                                onClick={()=>{set_active_window('login')}}
                             >Login</p>
-                            <p className={'form-wrapper__exit'} onClick={()=>{
-                                set_active_window('press_any_key');
-                                set_active_window_trigger(false);
-                            }}>Exit()</p>
+                            <p className={'form-wrapper__exit'}
+                               onClick={()=>{
+                                   set_active_window_trigger(false);
+                                   set_active_window('press_any_key');}}
+                            >Exit()</p>
                         </div>
                     </form>
                 </div> : false
