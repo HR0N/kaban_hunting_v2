@@ -12,7 +12,12 @@ function Header() {
                     <li className={`nav-item`}><NavLink to={"/"} exact="true">Home</NavLink></li>
                     <li className={`nav-item`}><NavLink to={"/1"} exact="true">item 1</NavLink></li>
                     <li className={`nav-item`}><NavLink to={"/2"} exact="true">item 2</NavLink></li>
-                    <li className={`nav-item`}><NavLink to={"/3"} exact="true">item 3</NavLink></li>
+                    <li className={`nav-item`}><div className={`dropdown`}>item 3
+                        <ul className={`dropdown-menu`}>
+                            <li><a href="/">sub item 1</a></li>
+                            <li><a href="/">sub item 2</a></li>
+                        </ul></div>
+                    </li>
                 </ul>
                 <div className="nav-auth"><NavLink to={"/auth"}>Auth</NavLink></div>
             </nav>
