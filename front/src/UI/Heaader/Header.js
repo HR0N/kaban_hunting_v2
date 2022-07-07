@@ -15,7 +15,7 @@ function Header() {
                     <li className={`nav-item`}><div className={`dropdown`}>Cat 3
                         <ul className={`dropdown-menu`}>
                             <li><a href="/">sub item 1</a></li>
-                            <li><a href="/ternary_options">Архитектура*</a></li>
+                            <li><NavLink to={"/ternary_options"} exact="true">Архитектура*</NavLink></li>
                         </ul></div>
                     </li>
                 </ul>
