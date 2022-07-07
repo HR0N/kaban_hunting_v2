@@ -15,6 +15,10 @@ class NeilArmstrongController extends Controller
     {
         return "That's one small step for man, one giant leap for mankind.";
     }
+    public function index2()
+    {
+        return "That's one small step for man, one giant leap for mankind.";
+    }
 
     /**
      * Store a newly created resource in storage.

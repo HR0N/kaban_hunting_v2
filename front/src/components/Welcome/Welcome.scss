@@ -1,3 +1,9 @@
 .Welcome{
   font-family: Helvetica-regular, sans-serif;
+  .buttons{
+    display: grid;
+    justify-content: space-evenly;
+    grid-auto-flow: column;
+    margin-top: 50px;
+  }
 }
