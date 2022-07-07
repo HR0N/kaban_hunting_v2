@@ -1,0 +1,67 @@
+.TernaryOptions{
+  font-size: 18px;
+  background-color: rgb(52,56,61);
+  min-height: 100vh;
+  .main{
+    font-family: "Comic Sans MS", sans-serif;
+    padding: 50px 6%;
+    h2{
+      color: whitesmoke;
+    }
+    .choose{
+      display: grid;
+      font-weight: bold;
+      width: 300px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+      background-color: rgb(28,30,33);
+      border-radius: .25rem;
+      padding: 10px;
+      row-gap: 2px;
+      label{
+        color: rgb(69, 74, 79);
+        background-color: rgb(31, 33, 36);
+        border-radius: .25rem;
+        user-select: none;
+        padding: 3px;
+        height: 36px;
+        position: relative;
+        cursor: pointer;
+        span{
+          position: absolute;
+          background-color: rgba(245, 245, 245, 1);
+          height: 32px;
+          width: 40px;
+          border-radius: .25rem;
+          right: 1px;
+          top: 1px;
+          &:after{
+            content: '';
+            position: absolute;
+            height: 30px;
+            width: 20px;
+            left: 1px;
+            top: 1px;
+            border-radius: .25rem;
+            background-color: rgb(52,56,61);
+            transition: linear all .2s;
+          }
+        }
+        input[type=checkbox]{
+          display: none;
+        }
+      }
+    }
+    .result{
+      margin-top: 10px;
+      font-weight: bold;
+      color: darkgrey;
+    }
+  }
+  .label_active{
+    color: rgb(76, 108, 79) !important;
+    span:after{
+      left: 19px !important;
+      background-color: rgb(34 158 22 / 72%) !important;
+    }
+  }
+}
