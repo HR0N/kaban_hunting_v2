@@ -8,12 +8,12 @@ function Welcome() {
         <div className={`Welcome`}>
             <Header/>
             <div className="buttons">
-                <div className="btn btn-outline-dark"
+                <div className="btn btn-outline-light"
                 onClick={()=>{
                     new Connect().get2();
                 }}
                 >Btn 1</div>
-                <div className="btn btn-outline-dark"
+                <div className="btn btn-outline-light"
                      onClick={()=>{
                          new Connect().get();
                      }}
