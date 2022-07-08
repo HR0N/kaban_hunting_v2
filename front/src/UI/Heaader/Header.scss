@@ -11,7 +11,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
-    text-align: center;
     ul{
       list-style: none;
       display: grid;
@@ -43,22 +42,20 @@
         width: 100%;
         transform: scale(0);
       }
+      .faCaretLeft{
+        position: absolute;
+        right: 6px;
+        transform: rotate(0);
+        transition: linear all .1s;
+      }
       &:hover{
         &:after{
           transform: scale(1) !important;
         }
-        &:before{
-          transform: rotate(0);
+        .faCaretLeft{
+          transform: rotate(-90deg);
         }
       }
-    }
-    .dropdown:before{
-      transform: rotate(90deg);
-      transition: linear all .1s;
-      content: '\23F7';
-      position: absolute;
-      right: 8px;
-      top: calc(50% - 11px);
     }
     .dropdown:hover > ul.dropdown-menu{
       animation: forwards drop_down .6s .1s;
@@ -76,6 +73,9 @@
     .nav-brand{
       padding-bottom: 2px;
       font-family: "Comic Sans MS", sans-serif;
+      .toggle_menu{
+        display: none;
+      }
       a:after{transform: scale(0)}
     }
     &:hover .active:after{transform: scale(0)}
@@ -109,4 +109,87 @@
   0%{max-height: 0}
   30%{max-height: 0}
   100%{max-height: 200px}
+}
+@media screen and (max-width: 769px){
+  .Header{
+    font-size: 16px;
+    .nav{
+      a, .dropdown{
+        padding: 13px 16px;
+        .faCaretLeft{
+          right: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .Header {
+    max-height: 48px;
+    overflow: hidden;
+    transition: linear all .4s;
+    .nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(98%, 100%));
+      justify-content: left;
+      padding: 0;
+
+      .nav-brand {
+        display: grid !important;
+        grid-template: 1fr / 1fr 1fr;
+        justify-content: space-between;
+        .toggle_menu{
+          color: white;
+          font-size: 24px;
+          display: grid;
+          justify-content: right;
+          align-content: center;
+          padding-right: 20px;
+        }
+      }
+
+      ul {
+        width: 100%;
+        list-style: none;
+        display: grid;
+        grid-auto-flow: unset;
+        grid-template-columns: repeat(auto-fit, 100%);
+        padding: 0;
+        li{
+          a, .dropdown{
+            justify-content: left;
+            .faCaretLeft{
+              right: unset;
+              left: 70px;
+              top: 16px;
+            }
+          }
+        }
+      }
+    }
+
+    a, .dropdown {
+      display: grid;
+      grid-template: 1fr / 1fr;
+      width: 100%;
+      padding: 13px 16px;
+    }
+    .nav-auth{
+      display: grid;
+      justify-content: left;
+    }
+
+    ul.dropdown-menu{
+      top: unset !important;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+      li{
+        a{
+        }
+      }
+    }
+  }
+  .Header.active{max-height: 600px;}
 }

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import "./TernaryOptions.scss";
 import Header from "../../UI/Heaader/Header";
 import $ from "jquery";
+import {NavLink} from "react-router-dom";
 
 function rand(min, max) {
     min = Math.ceil(min);

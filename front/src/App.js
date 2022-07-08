@@ -7,7 +7,6 @@ import Main from "./components/Main/Main";
 import Auth from "./components/Auth/Auth";
 import TernaryOptions from "./components/TernaryOptions/TernaryOptions";
 
-
 class App extends Component{
 
 

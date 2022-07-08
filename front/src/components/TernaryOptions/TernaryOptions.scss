@@ -11,7 +11,8 @@
     .choose{
       display: grid;
       font-weight: bold;
-      width: 300px;
+      width: 100%;
+      max-width: 374px;
       grid-template-columns: repeat(auto-fit, minmax(200px, auto));
       background-color: rgb(28,30,33);
       border-radius: .25rem;
@@ -62,6 +63,30 @@
     span:after{
       left: 19px !important;
       background-color: rgb(34 158 22 / 72%) !important;
+    }
+  }
+}
+@media screen and (max-width: 426px){
+  .TernaryOptions {
+
+    .main {
+
+      h2 {
+        text-align: center;
+      }
+
+      .choose {
+        label {
+          span {
+            &:after {
+            }
+          }
+        }
+      }
+
+      .result {
+        text-align: center;
+      }
     }
   }
 }
