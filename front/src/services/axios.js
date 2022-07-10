@@ -2,7 +2,6 @@ import axios from "axios";
 
 class Connect {
     constructor() {
-        this.token = null;
         this.axios = axios;
         this.devUrl = "http://127.0.0.1:8000/";
         this.prodUrl = "https://kabanb.evilcode.space/";
@@ -16,19 +15,26 @@ class Connect {
             withCredentials: true,
         });
     }
-    login(log, pas){
+    login(log, pas, cb = ()=>{}, cb2 = ()=>{}){
         this.ax.get('sanctum/csrf-cookie')
             .then(res => {
                 this.ax.post('api/login', {email: log, password: pas})
                     .then(res =>{
                         console.log(res);
+                        cb(res.data.user);
+                        cb2(res.data.token);
                     })
             });
     }
-    get(){
+    get(token){
         this.ax.get('sanctum/csrf-cookie')
             .then(res => {
-                this.ax.get('api/get')
+                this.ax.get('api/get'
+                    , {
+                    headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer '+token
+                        },})
                     .then(res =>{
                         console.log(res);
                     })

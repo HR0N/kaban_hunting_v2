@@ -1,16 +1,18 @@
 import './Auth.scss';
 import React, {useEffect, useRef, useState} from "react";
+import {connect} from "react-redux";
 import InputClass from "../../snipets/input";
 import ValidatorClass from "../../snipets/validator";
 import Connect from "../../services/axios";
 import Loader from "../../UI/Loader/Loader";
+import {save_token, save_user} from "../../redux/actions/App";
 
 
 const Input = new InputClass();
 const valid = new ValidatorClass();
 
 
-function Auth() {
+function Auth(props) {
     const WelcomeRef = useRef(null);
     const PressAnyKeyRef = useRef(null);
     const emailLog = Input.Use('');
@@ -38,6 +40,9 @@ function Auth() {
              onKeyPress={(e)=>{
                  if(!active_window_trigger){set_active_window_trigger(true); set_active_window('login')}
                  if(e.charCode === 13){
+                     if(readyLogin()){
+                         new Connect().login(emailLog.val, pasLog.val, props.save_user, props.save_token);
+                     }
                      console.log(readyLogin());
                      console.log(readyRegister());
                  }
@@ -129,4 +134,15 @@ function Auth() {
     );
 }
 
-export default Auth;
+function mapStateToProps(state){
+    return {
+        token: state.app.token,
+    }
+}
+function mapDispatchProps(dispatch){
+    return {
+        save_user: user =>{dispatch(save_user(user))},
+        save_token: token =>{dispatch(save_token(token))},
+    }
+}
+export default connect(mapStateToProps, mapDispatchProps)(Auth);

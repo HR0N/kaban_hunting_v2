@@ -1,12 +1,14 @@
-import {REFRESH_ALL} from "../actions/actionTypes";
+import {SAVE_TOKEN, SAVE_USER} from "../actions/actionTypes";
 
 const initialState = {
-    refresh_all: false,
+    user: {},
+    token: null,
 };
 
 export default function appReducer(state = initialState, action) {
     switch (action.type) {
-        case REFRESH_ALL: return {...state, refresh_all: action.payload };
+        case SAVE_USER: return {...state, user: action.payload };
+        case SAVE_TOKEN: return {...state, token: action.payload };
         default: return state;
     }
 }
