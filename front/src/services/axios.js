@@ -12,7 +12,7 @@ class Connect {
             headers: {
                 'X-Requested-Width': 'XMLHttpRequest',
             },
-            withCredentials: true,
+            withCredentials: false,
         });
     }
     login(log, pas, cb = ()=>{}, cb2 = ()=>{}){
@@ -26,7 +26,7 @@ class Connect {
                     })
             });
     }
-    get(token){
+    get_safety(token){
         this.ax.get('sanctum/csrf-cookie')
             .then(res => {
                 this.ax.get('api/get'
@@ -40,10 +40,10 @@ class Connect {
                     })
             });
     }
-    get2(){
+    get(link){
         this.ax.get('sanctum/csrf-cookie')
             .then(res => {
-                this.ax.post('api/get2')
+                this.ax.get(`api/${link}`)
                     .then(res =>{
                         console.log(res);
                     })

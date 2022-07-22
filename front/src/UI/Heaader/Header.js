@@ -25,7 +25,12 @@ function Header() {
                 <ul>
                     <li className={`nav-item`}><NavLink to={"/"} exact="true">Home</NavLink></li>
                     <li className={`nav-item`}><NavLink to={"/1"} exact="true">item 1</NavLink></li>
-                    <li className={`nav-item`}><NavLink to={"/2"} exact="true">item 2</NavLink></li>
+                    <li className={`nav-item`}><div className={`dropdown`}>Services
+                        <FontAwesomeIcon className={`faCaretLeft`} icon={faCaretLeft}/>
+                        <ul className={`dropdown-menu`}>
+                            <li><NavLink to={"/kabanchik"} exact="true">Kabanchik</NavLink></li>
+                        </ul></div>
+                    </li>
                     <li className={`nav-item`}><div className={`dropdown`}>Cat 3
                         <FontAwesomeIcon className={`faCaretLeft`} icon={faCaretLeft}/>
                         <ul className={`dropdown-menu`}>

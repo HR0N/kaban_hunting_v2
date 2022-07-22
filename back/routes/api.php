@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KabanchikController;
 use App\Http\Controllers\NeilArmstrongController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,8 @@ header("Access-Control-Allow-Headers", "X-Requested-With");*/
 // Public
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/getkabanchikcategories', [KabanchikController::class, 'index']);   // get kabanchik categories
 
 
 Route::post('/get2', [NeilArmstrongController::class, 'index2']);
