@@ -7,7 +7,7 @@ import Main from "./components/Main/Main";
 import Auth from "./components/Auth/Auth";
 import TernaryOptions from "./components/TernaryOptions/TernaryOptions";
 import Kabanchik from "./components/Kabanchik/Kabanchik";
-import {get_categories} from "./redux/actions/App";
+import {load_categories} from "./redux/actions/App";
 
 class App extends Component{
 
@@ -41,7 +41,7 @@ function mapStateToProps() {
 }
 function mapDispatchToProps(dispatch) {
     return {
-        load_categories: () =>{dispatch(get_categories())},
+        load_categories: () =>{dispatch(load_categories())},
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -41,11 +41,12 @@ class Connect {
             });
     }
     get(link){
-        this.ax.get('sanctum/csrf-cookie')
+        return this.ax.get('sanctum/csrf-cookie')
             .then(res => {
-                this.ax.get(`api/${link}`)
+                return this.ax.get(`api/${link}`)
                     .then(res =>{
-                        console.log(res);
+                        // console.log(res);
+                        return res;
                     })
             });
     }
