@@ -10,7 +10,6 @@ class KabanchikCategories extends Model
     use HasFactory;
 
     protected $fillable = [
-        'category',
-        'parent_category',
+        'categories',
     ];
 }

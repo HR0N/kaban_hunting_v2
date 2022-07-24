@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('kabanchik_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('category');
-            $table->string('parent_category');
+            $table->json('categories');
             $table->timestamps();
         });
     }

@@ -45,6 +45,7 @@ class Connect {
             .then(res => {
                 return this.ax.get(`api/${link}`)
                     .then(res =>{
+                        // console.log(JSON.parse(res.data[0].categories));
                         // console.log(res);
                         return res;
                     })

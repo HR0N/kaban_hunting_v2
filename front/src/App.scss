@@ -3,3 +3,15 @@
   min-height: 100vh;
   background-color: rgb(52,56,61);
 }
+::-webkit-scrollbar {                             /* width */
+  width: 4px;
+}
+::-webkit-scrollbar-track {                       /* Track */
+  background: #b6c9ff;
+}
+::-webkit-scrollbar-thumb {                      /* Handle */
+  background: #222431;
+}
+::-webkit-scrollbar-thumb:hover {       /* Handle on hover */
+  background: #555;
+}
