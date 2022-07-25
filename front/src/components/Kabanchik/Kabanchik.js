@@ -7,37 +7,14 @@ import Subcategories from "./sub_categories";
 
 
 function Kabanchik({props}) {
-    const getCategories = useSelector(state => props.categories);
+    const categories = useSelector(state => props.categories);
     const [curCategory, setCurCategory] = useState('');
-    const [categories, setCategories] = useState([]);
-    const [subCategories, setSubCategories] = useState([]);
-    const [subCategories2, setSubCategories2] = useState([]);
     useEffect(()=>{
-        fetchCategories();
-    }, [getCategories]);
-    const fetchCategories = ()=>{
-        let cat = {cat1: [], cat2: [], cat3: []};
-        if(getCategories){
-            getCategories.map((v, k)=>{
-                if(v.id > 0 && v.id <= 24){
-                    cat.cat1.push(v);
-                }
-                if(v.id > 24 && v.id <= 1177){
-                    cat.cat2.push(v);
-                }
-                if(v.id > 1177){
-                    cat.cat3.push(v);
-                }
-            });
-        }
-        if(cat.cat1[0])setCurCategory(cat.cat1[0].category);
-        setCategories(cat.cat1);
-        setSubCategories(cat.cat2);
-        setSubCategories2(cat.cat3);
-    };
+        if(categories){setCurCategory(Object.keys(categories)[0]);}
+    }, [categories]);
     const renderCategories = ()=>{
-        return categories.map((v, k)=>{
-            return <option key={v.id} value={v.category}>{v.category}</option>;
+        return Object.keys(categories).map((v, k)=>{
+            return <option key={k} value={v}>{v}</option>
         });
     };
     return(             //   <option key={v.id} value={v.id}>{v.category}</option>
@@ -47,7 +24,7 @@ function Kabanchik({props}) {
                 <h2>Все категории услуг</h2>
                 <div className="choose_categories">
                     <div className="choose_categories1">
-                        {getCategories ?
+                        {categories ?
                         <select className='form-select' name="ho_category" id="ho_category"
                             onChange={(e)=>{setCurCategory(e.target.value)}}
                         >
@@ -60,9 +37,8 @@ function Kabanchik({props}) {
                     </div>
                     <div className="choose_categories2">
                         <Subcategories
-                            curCategory = {curCategory}
-                            subcategories = {subCategories}
-                            subcategories2 = {subCategories2}
+                            curCategory={curCategory}
+                            categories={categories}
                         />
                     </div>
                 </div>

@@ -1,29 +1,31 @@
-import React from "react";
+import React, {useState} from "react";
 import {connect} from "react-redux";
+import Loader from "../../UI/Loader/Loader";
 
 
 function Subcategories(props) {
-    const renderSubcategories = ()=>{
-        return props.subcategories.map((v, k)=>{
-            if(props.curCategory === v.parent_category){
-                return <li key={v.id}><label><input type="checkbox"/> {v.category}</label></li>
+    const renderSubCategories = ()=>{
+        return Object.keys(props.categories[props.curCategory]).map((v, k)=>{
+            if(props.categories[props.curCategory][v]){
+                return <li key={k}><label><input type="checkbox"/> {v}</label>
+                            <ul className={`sub-list`}>
+                                {renderSubCategories2(props.categories[props.curCategory][v])}
+                            </ul>
+                        </li>
+            }else{
+                return <li key={k}><label><input value={v} type="checkbox"/> {v}</label></li>
             }
+        });
+    };
+    const renderSubCategories2 = (subcategories)=>{
+        return subcategories.map((v, k)=>{
+            return <li key={k}><label><input value={v} type="checkbox"/> {v}</label></li>
         });
     };
     return(
         <ul className={`Subcategories`}>
-            {renderSubcategories()}
-            <li><label><input type="checkbox"/> Химчистка</label>
-                <ul className={`sub-list`}>
-                    <li><label><input type="checkbox"/> Химчистка мебели</label></li>
-                    <li><label><input type="checkbox"/> Химчистка ковров</label></li>
-                    <li><label><input type="checkbox"/> Химчистка одежды</label></li>
-                    <li><label><input type="checkbox"/> Химчистка текстиля</label></li>
-                    <li><label><input type="checkbox"/> Химчистка меховых изделий</label></li>
-                    <li><label><input type="checkbox"/> Химчистка кожаных изделий</label></li>
-                    <li><label><input type="checkbox"/> Другое в услугах химчистки</label></li>
-                </ul>
-            </li>
+            {(props.categories && props.curCategory) ? renderSubCategories() : <Loader/>}
+
         </ul>
     );
 }

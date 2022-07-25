@@ -12,7 +12,9 @@ export function load_categories() {
         try{
             const response = await axios
                 .get('getkabanchikcategories');
-            dispatch(save_categories(response.data))
+            let result = JSON.parse(response.data[0].categories);
+            // console.log(result);
+            dispatch(save_categories(result))
         }
         catch(e){console.log(e)}
     }
