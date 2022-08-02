@@ -2,38 +2,59 @@
   color: white;
   section.main{
     padding: 6%;
-    .choose_categories{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, auto));
-      gap: 30px;
-      .choose_categories1, .choose_categories2{
-      }
-      .choose_categories1{
-        max-width: 400px;
-      }
-      .choose_categories2{
-        ul{
-          margin: 0;
-          padding: 0;
-          list-style: none;
-          user-select: none;
-          li{
-            label{
-              cursor: pointer;
-              padding: 2px 3px;
-            }
-            .sub-list{
-              padding: 5px 0 0 15px;
+    .choose_group{
+      padding-bottom: 50px;
+      border-bottom: 1px solid grey;
+    }
+    .settings{
+      padding-bottom: 50px;
+      border-bottom: 1px solid grey;
+      .choose_categories{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(310px, auto));
+        gap: 30px;
+        .choose_categories1, .choose_categories2{
+        }
+        .choose_categories1{
+          max-width: 400px;
+        }
+        .choose_categories2{
+          ul{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            user-select: none;
+            li{
+              label{
+                cursor: pointer;
+                padding: 2px 3px;
+              }
+              .sub-list{
+                padding: 5px 0 0 15px;
+              }
             }
           }
         }
+        .buttons{
+          display: grid;
+          justify-content: flex-end;
+          margin-top: 20px;
+        }
+
       }
+    }
+    .new_group{
+      width: 50%;
+      min-width: 310px;
+      max-width: 400px;
+      padding-top: 50px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 100%));
+      row-gap: 20px;
       .buttons{
         display: grid;
         justify-content: flex-end;
-        margin-top: 20px;
       }
-
     }
   }
 }

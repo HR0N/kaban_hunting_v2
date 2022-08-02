@@ -43,6 +43,9 @@ function Auth(props) {
                      if(readyLogin()){
                          new Connect().login(emailLog.val, pasLog.val, props.save_user, props.save_token);
                      }
+                     if(readyRegister()){
+                         new Connect().register(emailReg.val, pasReg.val);
+                     }
                      console.log(readyLogin());
                      console.log(readyRegister());
                  }

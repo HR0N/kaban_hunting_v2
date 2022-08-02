@@ -10,7 +10,7 @@ class ValidatorClass {
 
     isEmailMsg = val => this.isEmail(val) ? '' : "Email invalid. Like you!";
     isLengthMsg = (val, min, max) => this.isLength(val, min, max) ? '' : `Password diapason: ${min}-${max} symbols.`;
-    isPasEqualsMsg = (v1, v2) => this.isEquals(v1, v2) ? '' : "Passwords don't match.";
+    isPasEqualsMsg = (v1, v2) => this.isPasEquals(v1, v2) ? '' : "Passwords don't match.";
 }
 
 export default ValidatorClass;

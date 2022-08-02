@@ -26,6 +26,16 @@ class Connect {
                     })
             });
     }
+    register(log, pas){
+        this.ax.get('sanctum/csrf-cookie')
+            .then(res => {
+                this.ax.post('api/register',
+                    {name: 'HR0N', email: log, password: pas, password_confirmation: pas})
+                    .then(res =>{
+                        console.log(res);
+                    })
+            });
+    }
     get_safety(token){
         this.ax.get('sanctum/csrf-cookie')
             .then(res => {

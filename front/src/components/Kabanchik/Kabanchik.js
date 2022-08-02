@@ -21,25 +21,42 @@ function Kabanchik({props}) {
         <div className={`Kabanchik`}>
             <Header/>
             <section className="main">
-                <h2>Все категории услуг</h2>
-                <div className="choose_categories">
-                    <div className="choose_categories1">
-                        {categories ?
-                        <select className='form-select' name="ho_category" id="ho_category"
-                            onChange={(e)=>{setCurCategory(e.target.value)}}
-                        >
-                            {categories ? renderCategories() : false}
-                        </select>
-                            : <Loader/>}
-                        <div className="buttons">
-                            <div className="btn btn-outline-light">Выбрать</div>
+                <div className="choose_group">
+                    <h2>Выбор группы</h2>
+                    <select className={`form-select`} name="choose_group">
+                        <option value="-1001532009135">KKPS v3</option>
+                        <option value="0">name</option>
+                    </select>
+                </div>
+                <div className="settings">
+                    <h2>Все категории услуг</h2>
+                    <div className="choose_categories">
+                        <div className="choose_categories1">
+                            {categories ?
+                                <select className='form-select' name="ho_category" id="ho_category"
+                                        onChange={(e)=>{setCurCategory(e.target.value)}}
+                                >
+                                    {categories ? renderCategories() : false}
+                                </select>
+                                : <Loader/>}
+                            <div className="buttons">
+                                <div className="btn btn-outline-light">Выбрать</div>
+                            </div>
+                        </div>
+                        <div className="choose_categories2">
+                            <Subcategories
+                                curCategory={curCategory}
+                                categories={categories}
+                            />
                         </div>
                     </div>
-                    <div className="choose_categories2">
-                        <Subcategories
-                            curCategory={curCategory}
-                            categories={categories}
-                        />
+                </div>
+                <div className="new_group">
+                    <h2>Новая группа</h2>
+                    <input className={`form-control`} type="text" placeholder={'Название группы'} name={`name`}/>
+                    <input className={`form-control`} type="text" placeholder={'id группы'} name={`group_id`}/>
+                    <div className="buttons">
+                        <div className="btn btn-outline-light">Create</div>
                     </div>
                 </div>
             </section>
