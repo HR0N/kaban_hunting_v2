@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriesWatchController;
 use App\Http\Controllers\KabanchikController;
 use App\Http\Controllers\NeilArmstrongController;
 use Illuminate\Http\Request;
@@ -30,6 +31,8 @@ Route::get('/getkabanchikcategories', [KabanchikController::class, 'index']);   
 
 
 Route::post('/get2', [NeilArmstrongController::class, 'index2']);
+Route::post('/new_kabanchik_group', [CategoriesWatchController::class, 'new_group']);
+Route::get('/get_kabanchik_groups', [CategoriesWatchController::class, 'get_groups']);
 Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::get('/get', [NeilArmstrongController::class, 'index']);
 });

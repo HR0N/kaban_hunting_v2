@@ -1,4 +1,4 @@
-import {SAVE_CATEGORIES, SAVE_TOKEN, SAVE_USER} from "./actionTypes";
+import {SAVE_CATEGORIES, SAVE_GROUPS, SAVE_TOKEN, SAVE_USER} from "./actionTypes";
 import Connect from "../../services/axios";
 const axios = new Connect();
 export function save_token(payload) {
@@ -21,4 +21,19 @@ export function load_categories() {
 }
 function save_categories(payload) {
     return {type: SAVE_CATEGORIES, payload};
+}
+export function load_groups() {
+    return async dispatch => {
+        try{
+            const response = await axios
+                .get('get_kabanchik_groups');
+            let result = (response.data);
+            // console.log(result);
+            dispatch(save_groups(result))
+        }
+        catch(e){console.log(e)}
+    }
+}
+function save_groups(payload) {
+    return {type: SAVE_GROUPS, payload};
 }

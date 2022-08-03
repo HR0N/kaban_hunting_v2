@@ -61,5 +61,15 @@ class Connect {
                     })
             });
     }
+    new_group(title, group, watch = 'false'){
+        this.ax.get('sanctum/csrf-cookie')
+            .then(res => {
+                this.ax.post('api/new_kabanchik_group',
+                    {title: title, group: group, watch: watch})
+                    .then(res =>{
+                        console.log(res);
+                    })
+            });
+    }
 }
 export default Connect;
