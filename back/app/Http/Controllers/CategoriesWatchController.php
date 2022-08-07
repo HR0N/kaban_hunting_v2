@@ -40,6 +40,12 @@ class CategoriesWatchController extends Controller
     {
         return CategoriesWatch::all();
     }
+    public function set_group_watched(Request $request, $id)
+    {
+        $group = CategoriesWatch::find($id);
+        $group->update($request->all());
+        return $group;
+    }
 
     /**
      * Store a newly created resource in storage.

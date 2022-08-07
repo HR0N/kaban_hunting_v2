@@ -16,8 +16,10 @@ function Kabanchik({props}) {
     const [curCategory, setCurCategory] = useState('');
     const new_group_title = Input.Use('');
     const new_group_id = Input.Use('');
+    const [cur_group, set_cur_group] = useState(null);
     useEffect(()=>{
         if(categories){setCurCategory(Object.keys(categories)[0]);}
+        if(groups){set_cur_group(groups[0])}
     }, [categories]);
     const renderCategories = ()=>{
         return Object.keys(categories).map((v, k)=>{
@@ -26,7 +28,7 @@ function Kabanchik({props}) {
     };
     const renderGroups = ()=>{
         return groups.map((val, key)=>{
-            return <option key={key} value={val.group}>{val.title}</option>
+            return <option key={key} value={val.id}>{val.title}</option>
         });
     };
     return(             //   <option key={v.id} value={v.id}>{v.category}</option>
@@ -35,7 +37,12 @@ function Kabanchik({props}) {
             <section className="main">
                 <div className="choose_group">
                     <h2>Выбор группы</h2>
-                    <select className={`form-select`} name="choose_group">
+                    <select className={`form-select`} name="choose_group"
+                        onChange={(e)=>{
+                            groups.map((v, k)=>{
+                            if(v.id === +e.target.value){set_cur_group(v)}});
+                        }}
+                    >
                         {groups ? renderGroups() : false}
                     </select>
                 </div>
@@ -58,6 +65,8 @@ function Kabanchik({props}) {
                             <Subcategories
                                 curCategory={curCategory}
                                 categories={categories}
+                                curGroup={cur_group}
+                                groups={groups}
                             />
                         </div>
                     </div>

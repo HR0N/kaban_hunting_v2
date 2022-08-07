@@ -61,11 +61,22 @@ class Connect {
                     })
             });
     }
-    new_group(title, group, watch = 'false'){
+    new_group(title, group, watch = 'empty'){
         this.ax.get('sanctum/csrf-cookie')
             .then(res => {
                 this.ax.post('api/new_kabanchik_group',
                     {title: title, group: group, watch: watch})
+                    .then(res =>{
+                        console.log(res);
+                    })
+            });
+    }
+    update_group_watch(watch, id){
+        if(watch.length<1){watch = 'empty'}
+        this.ax.get('sanctum/csrf-cookie')
+            .then(res => {
+                this.ax.post('api/set_kabanchik_group_watched/'+id,
+                    {watch: watch})
                     .then(res =>{
                         console.log(res);
                     })
