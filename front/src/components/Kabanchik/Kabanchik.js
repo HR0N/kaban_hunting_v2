@@ -6,6 +6,7 @@ import Loader from "../../UI/Loader/Loader";
 import Subcategories from "./sub_categories";
 import InputClass from "../../snipets/input";
 import Connect from "../../services/axios";
+import Cities from "./Cities";
 
 
 const Input = new InputClass();
@@ -60,6 +61,9 @@ function Kabanchik({props}) {
                             <div className="buttons">
                                 <div className="btn btn-outline-light">Выбрать</div>
                             </div>
+                            <Cities
+                                curGroup={cur_group}
+                            />
                         </div>
                         <div className="choose_categories2">
                             <Subcategories

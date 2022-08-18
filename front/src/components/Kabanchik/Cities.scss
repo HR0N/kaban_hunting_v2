@@ -1,0 +1,16 @@
+.Cities{
+  margin-top: 50px;
+  max-height: 200px;
+  overflow-y: scroll;
+  list-style: none;
+  padding: 3px;
+  box-shadow: 0 0 3px dimgray;
+  li{
+    position: relative;
+    label{
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid #424242;
+    }
+  }
+}

@@ -34,6 +34,7 @@ Route::post('/get2', [NeilArmstrongController::class, 'index2']);
 Route::post('/new_kabanchik_group', [CategoriesWatchController::class, 'new_group']);
 Route::get('/get_kabanchik_groups', [CategoriesWatchController::class, 'get_groups']);
 Route::post('/set_kabanchik_group_watched/{id}', [CategoriesWatchController::class, 'set_group_watched']);
+Route::post('/set_kabanchik_group_city/{id}', [CategoriesWatchController::class, 'set_group_city']);
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::get('/get', [NeilArmstrongController::class, 'index']);

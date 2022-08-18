@@ -13,5 +13,6 @@ class CategoriesWatch extends Model
         'title',
         'group',
         'watch',
+        'city',
     ];
 }

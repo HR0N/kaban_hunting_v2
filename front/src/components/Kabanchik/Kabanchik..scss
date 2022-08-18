@@ -10,8 +10,9 @@
       padding-bottom: 50px;
       border-bottom: 1px solid grey;
       .choose_categories{
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(310px, auto));
+        display: inline-grid;
+        width: 100%;
+        grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
         gap: 30px;
         .choose_categories1, .choose_categories2{
         }

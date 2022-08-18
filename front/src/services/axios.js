@@ -61,11 +61,11 @@ class Connect {
                     })
             });
     }
-    new_group(title, group, watch = 'empty'){
+    new_group(title, group, watch = 'empty', city = 'all'){
         this.ax.get('sanctum/csrf-cookie')
             .then(res => {
                 this.ax.post('api/new_kabanchik_group',
-                    {title: title, group: group, watch: watch})
+                    {title: title, group: group, watch: watch, city: city})
                     .then(res =>{
                         console.log(res);
                     })
@@ -77,6 +77,17 @@ class Connect {
             .then(res => {
                 this.ax.post('api/set_kabanchik_group_watched/'+id,
                     {watch: watch})
+                    .then(res =>{
+                        console.log(res);
+                    })
+            });
+    }
+    update_group_city(city, id){
+        if(city.length<1){city = 'all'}
+        this.ax.get('sanctum/csrf-cookie')
+            .then(res => {
+                this.ax.post('api/set_kabanchik_group_city/'+id,
+                    {city: city})
                     .then(res =>{
                         console.log(res);
                     })

@@ -22,12 +22,14 @@ class CategoriesWatchController extends Controller
         $fields = $request->validate([
             'title' => 'required|string',
             'group' => 'required|string',
-            'watch' => 'required|string'
+            'watch' => 'required|string',
+            'city' => 'required|string'
         ]);
         $group = CategoriesWatch::create([
             'title' => $fields['title'],
             'group' => $fields['group'],
-            'watch' => $fields['watch']
+            'watch' => $fields['watch'],
+            'city' => $fields['city']
         ]);
 
         $response = [
@@ -41,6 +43,12 @@ class CategoriesWatchController extends Controller
         return CategoriesWatch::all();
     }
     public function set_group_watched(Request $request, $id)
+    {
+        $group = CategoriesWatch::find($id);
+        $group->update($request->all());
+        return $group;
+    }
+    public function set_group_city(Request $request, $id)
     {
         $group = CategoriesWatch::find($id);
         $group->update($request->all());

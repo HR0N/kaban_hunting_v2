@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('title');
             $table->text('group');
             $table->text('watch');
+            $table->text('city');
             $table->timestamps();
         });
     }
