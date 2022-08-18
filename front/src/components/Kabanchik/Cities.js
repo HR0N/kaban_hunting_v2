@@ -15,7 +15,7 @@ const cities = [
 ];
 
 function Cities(props) {
-    const [curCities, setCurCities] = useState('');
+    const [curCities, setCurCities] = useState('all');
 
     const render_cities = ()=>{
         return cities.map((v, k)=>{
