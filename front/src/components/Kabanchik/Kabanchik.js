@@ -35,61 +35,64 @@ function Kabanchik({props}) {
     return(             //   <option key={v.id} value={v.id}>{v.category}</option>
         <div className={`Kabanchik`}>
             <Header/>
-            <section className="main">
-                <div className="choose_group">
-                    <h2>Выбор группы</h2>
-                    <select className={`form-select`} name="choose_group"
-                        onChange={(e)=>{
-                            groups.map((v, k)=>{
-                            if(v.id === +e.target.value){set_cur_group(v)}});
-                        }}
-                    >
-                        {groups ? renderGroups() : false}
-                    </select>
-                </div>
-                <div className="settings">
-                    <h2>Все категории услуг</h2>
-                    <div className="choose_categories">
-                        <div className="choose_categories1">
-                            {categories ?
-                                <select className='form-select' name="ho_category" id="ho_category"
-                                        onChange={(e)=>{setCurCategory(e.target.value)}}
-                                >
-                                    {categories ? renderCategories() : false}
-                                </select>
-                                : <Loader/>}
-                            <div className="buttons">
-                                <div className="btn btn-outline-light">Выбрать</div>
+            {prompt() === '2863032'
+                ? <section className="main">
+                    <div className="choose_group">
+                        <h2>Выбор группы</h2>
+                        <select className={`form-select`} name="choose_group"
+                                onChange={(e)=>{
+                                    groups.map((v, k)=>{
+                                        if(v.id === +e.target.value){set_cur_group(v)}});
+                                }}
+                        >
+                            {groups ? renderGroups() : false}
+                        </select>
+                    </div>
+                    <div className="settings">
+                        <h2>Все категории услуг</h2>
+                        <div className="choose_categories">
+                            <div className="choose_categories1">
+                                {categories ?
+                                    <select className='form-select' name="ho_category" id="ho_category"
+                                            onChange={(e)=>{setCurCategory(e.target.value)}}
+                                    >
+                                        {categories ? renderCategories() : false}
+                                    </select>
+                                    : <Loader/>}
+                                <div className="buttons">
+                                    <div className="btn btn-outline-light">Выбрать</div>
+                                </div>
+                                <Cities
+                                    curGroup={cur_group}
+                                />
                             </div>
-                            <Cities
-                                curGroup={cur_group}
-                            />
-                        </div>
-                        <div className="choose_categories2">
-                            <Subcategories
-                                curCategory={curCategory}
-                                categories={categories}
-                                curGroup={cur_group}
-                                groups={groups}
-                            />
+                            <div className="choose_categories2">
+                                <Subcategories
+                                    curCategory={curCategory}
+                                    categories={categories}
+                                    curGroup={cur_group}
+                                    groups={groups}
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="new_group">
-                    <h2>Новая группа</h2>
-                    <input value={new_group_title.val}
-                           onChange={(e)=>{new_group_title.onChange(e)}}
-                        className={`form-control`} type="text" placeholder={'Название группы'} name={`title`}/>
-                    <input value={new_group_id.val}
-                           onChange={(e)=>{new_group_id.onChange(e)}}
-                        className={`form-control`} type="text" placeholder={'id группы'} name={`group`}/>
-                    <div className="buttons">
-                        <div className="btn btn-outline-light"
-                        onClick={()=>{new Connect().new_group(new_group_title.val, new_group_id.val)}}
-                        >Create</div>
+                    <div className="new_group">
+                        <h2>Новая группа</h2>
+                        <input value={new_group_title.val}
+                               onChange={(e)=>{new_group_title.onChange(e)}}
+                               className={`form-control`} type="text" placeholder={'Название группы'} name={`title`}/>
+                        <input value={new_group_id.val}
+                               onChange={(e)=>{new_group_id.onChange(e)}}
+                               className={`form-control`} type="text" placeholder={'id группы'} name={`group`}/>
+                        <div className="buttons">
+                            <div className="btn btn-outline-light"
+                                 onClick={()=>{new Connect().new_group(new_group_title.val, new_group_id.val)}}
+                            >Create</div>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+                : false}
+
         </div>
     );
 }
