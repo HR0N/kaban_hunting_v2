@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.4ca2a24b.css",
-    "main.js": "/static/js/main.97d2b4fe.js",
+    "main.css": "/static/css/main.f1133bcb.css",
+    "main.js": "/static/js/main.dadc8c2a.js",
     "static/js/27.262d8d9e.chunk.js": "/static/js/27.262d8d9e.chunk.js",
     "static/media/helvetica_regular.otf": "/static/media/helvetica_regular.da7db66db5a8e54a8308.otf",
     "static/media/Roboto-Regular.ttf": "/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
@@ -9,7 +9,7 @@
     "index.html": "/index.html"
   },
   "entrypoints": [
-    "static/css/main.4ca2a24b.css",
-    "static/js/main.97d2b4fe.js"
+    "static/css/main.f1133bcb.css",
+    "static/js/main.dadc8c2a.js"
   ]
 }

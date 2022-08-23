@@ -18,6 +18,7 @@ function Kabanchik({props}) {
     const new_group_title = Input.Use('');
     const new_group_id = Input.Use('');
     const [cur_group, set_cur_group] = useState(null);
+    const [plug, setPlug] = useState(true);
     useEffect(()=>{
         if(categories){setCurCategory(Object.keys(categories)[0]);}
         if(groups){set_cur_group(groups[0])}
@@ -32,11 +33,16 @@ function Kabanchik({props}) {
             return <option key={key} value={val.id}>{val.title}</option>
         });
     };
+    const visible = ()=>{document.body.style.overflow = "visible";};
+    const hidden  = ()=>{document.body.style.overflow = "hidden";};
+    if(plug){
+        hidden();
+    }else{visible()}
     return(             //   <option key={v.id} value={v.id}>{v.category}</option>
         <div className={`Kabanchik`}>
             <Header/>
-            {prompt() === '2863032'
-                ? <section className="main">
+            <section className="main">
+                {plug ? <div className="modal-plug">{prompt() === '2863032' ? setPlug(false) : false}</div> : false}
                     <div className="choose_group">
                         <h2>Выбор группы</h2>
                         <select className={`form-select`} name="choose_group"
@@ -91,7 +97,6 @@ function Kabanchik({props}) {
                         </div>
                     </div>
                 </section>
-                : false}
 
         </div>
     );
